@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Sistema Arrow</string>
+    <string name="label_login">Inicio de sesión</string>
+    <string name="label_email">Correo electrónico:</string>
+    <string name="label_password">Contraseña:</string>
+    <string name="button_login">Ingresar</string>
+    <string name="link_register">¿Aún no te has registrado?</string>
+    <string name="please_fill_login">Ingrese su datos para iniciar sesión</string>
+    <string name="error_loding_contra">Ocurrio un problema al cargar los contratos</string>
+</resources>
