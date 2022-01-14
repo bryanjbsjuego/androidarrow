@@ -1,4 +1,4 @@
-package com.example.sistemaarrow
+package com.example.sistemaarrow.util
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -9,6 +9,9 @@ import com.example.sistemaarrow.ContratosAdapter
 import com.example.sistemaarrow.R
 import com.example.sistemaarrow.io.ApiService
 import com.example.sistemaarrow.model.Contrato
+import com.example.sistemaarrow.util.PreferenceHelper
+import com.example.sistemaarrow.util.PreferenceHelper.get
+import com.example.sistemaarrow.util.toast
 import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,33 +20,90 @@ import retrofit2.Response
 
 
 class ContratosActivity : AppCompatActivity() {
+    private val apiService by lazy {
+        ApiService.create()
+    }
+    private val preferences by lazy {
+        PreferenceHelper.defaultPrefs(this)
+    }
+    private val contratoAdapter= ContratosAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contratos)
 
-        val contratos=ArrayList<Contrato>()
+        loadContratos()
 
-        contratos.add(Contrato(1,"7628738","calle lomas",
-            "Escavación","09/02/2021","Calle 5","13/12/2021",
-            "29/12/2021",11,345.0,120.0,1,1,
-            1,1,1))
-        contratos.add(Contrato(2,"HOLA","calle lomas",
-            "Escavación","09/02/2021","Calle 5","13/12/2021",
-            "29/12/2021",11,345.0,120.0,1,1,
-            1,1,1))
-        contratos.add(Contrato(3,"Bryan","calle lomas",
-            "Escavación","09/02/2021","Calle 5","13/12/2021",
-            "29/12/2021",11,345.0,120.0,1,1,
-            1,1,1))
+
 
         val rvContratos=findViewById<RecyclerView>(R.id.rvContratos)
         rvContratos.layoutManager=LinearLayoutManager(this)
-        rvContratos.adapter= ContratosAdapter(contratos)
+        rvContratos.adapter= contratoAdapter
+
+        val btn_buscar=findViewById<Button>(R.id.btnBuscar)
+
+        btn_buscar.setOnClickListener {
+            buscarContratos()
+        }
+
+
+    }
+
+    private fun buscarContratos(){
+        val busq=findViewById<EditText>(R.id.textBuscar)
+
+        val busqueda=busq.text.toString()
+
+        val jwt =preferences["jwt",""]
+        val call= apiService.getSearch("Bearer $jwt",busqueda)
+
+        call.enqueue(object: Callback<ArrayList<Contrato>>{
+            override fun onResponse(
+                call: Call<ArrayList<Contrato>>,
+                response: Response<ArrayList<Contrato>>
+            ) {
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        contratoAdapter.contratos=it
+                        contratoAdapter.notifyDataSetChanged()
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<Contrato>>, t: Throwable) {
+                toast(t.localizedMessage)
+            }
+
+        })
 
 
 
+    }
+
+    private fun loadContratos(){
+        val jwt =preferences["jwt",""]
+        val call= apiService.getContratos("Bearer $jwt")
+        call.enqueue(object: Callback<ArrayList<Contrato>>{
+            override fun onResponse(
+                call: Call<ArrayList<Contrato>>,
+                response: Response<ArrayList<Contrato>>
+            ) {
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        contratoAdapter.contratos=it
+                        contratoAdapter.notifyDataSetChanged()
+                    }
 
 
+                }
+            }
+
+            override fun onFailure(call: Call<ArrayList<Contrato>>, t: Throwable) {
+                toast(t.localizedMessage)
+            }
+
+        })
     }
 
 }

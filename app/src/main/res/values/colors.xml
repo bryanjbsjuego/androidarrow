@@ -12,4 +12,10 @@
     <color name="gray">#BDBDBD</color>
     <color name="transparent">#A3FFFFFF</color>
     <color name="base1">#DD5E89</color>
+
+    <!--Colores segundos-->
+
+    <color name="black2">#30373e</color>
+
+
 </resources>

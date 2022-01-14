@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black2"
     tools:context=".ui.LoginActivity">
 
 
@@ -49,7 +50,7 @@
                 android:id="@+id/editTextTextEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_top"
+                android:background="@color/white"
                 android:ems="10"
                 android:hint="Correo electrónico"
                 android:inputType="textEmailAddress"
@@ -59,8 +60,9 @@
                 android:id="@+id/editTextTextPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border_bottom"
+                android:background="@color/white"
                 android:ems="10"
+                android:textColor="@color/black"
                 android:hint="Contraseña( +6 caracteres)"
                 android:inputType="textPassword"
                 android:padding="15dp" />

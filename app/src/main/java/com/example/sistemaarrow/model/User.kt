@@ -24,4 +24,5 @@ data class User(val id:Int,
                 val id_tenant:Int,
                 val empresa:Int,
                 val confirmed: Int,
+                val estatus:Int
                 )

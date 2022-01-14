@@ -15,4 +15,11 @@ data class Contrato( val id:Int,
                      val id_cliente: Int,
                     val id_empresa: Int,
                     val id_responsable:Int,
-                    val id_asistente:Int)
+                    val id_asistente:Int,
+                    val nombre_cliente:String){
+
+    override fun toString(): String {
+        return contrato
+    }
+}
+
